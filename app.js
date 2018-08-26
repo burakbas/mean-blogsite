@@ -7,11 +7,11 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
-require("./models/User");
-require("./models/Post");
-require("./config/passport");
+require("./api/models/User");
+require("./api/models/Post");
+require("./api/config/passport");
 
-var api = require('./routes/api');
+var api = require('./api/routes/api');
 var app = express();
 
 // view engine setup
