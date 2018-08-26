@@ -3,22 +3,22 @@ import { Router } from '@angular/router';
 import { AuthenticationService, TokenPayload } from '../services/authentication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent {
+export class RegisterComponent {
 
   credentials: TokenPayload = {
     email: '',
+    name: '',
     password: ''
   };
 
   constructor(private auth: AuthenticationService, private router: Router) {}
 
-  login() {
-    this.auth.login(this.credentials).subscribe((res) => {
-      console.log(res);
+  register() {
+    this.auth.register(this.credentials).subscribe(() => {
       this.router.navigateByUrl('/profile');
     }, (err) => {
       console.error(err);

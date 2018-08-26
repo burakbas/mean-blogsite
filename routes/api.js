@@ -1,70 +1,23 @@
-var mongoose = require('mongoose');
-var passport = require('passport');
-var config = require('../config/database');
-require('../config/passport')(passport);
 var express = require('express');
-var jwt = require('jsonwebtoken');
 var router = express.Router();
-var User = require("../models/user");
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send('Express RESTful API');
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'secret',
+  userProperty: 'payload'
 });
 
-router.post('/signup', function(req, res) {
-  if (!req.body.username || !req.body.password) {
-    res.json({success: false, msg: 'Please pass username and password.'});
-  } else {
-    var newUser = new User({
-      username: req.body.username,
-      password: req.body.password
-    });
-    // save the user
-    newUser.save(function(err) {
-      if (err) {
-        return res.json({success: false, msg: 'Username already exists.'});
-      }
-      res.json({success: true, msg: 'Successful created new user.'});
-    });
-  }
-});
+var ctrlProfile = require('../controllers/profile');
+var ctrlAuth = require('../controllers/authentication');
+var ctrlBlog = require('../controllers/blog');
 
-router.post('/signin', function(req, res) {
-  User.findOne({
-    username: req.body.username
-  }, function(err, user) {
-    if (err) throw err;
+// profile
+router.get('/profile', auth, ctrlProfile.profileRead);
 
-    if (!user) {
-      res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
-    } else {
-      // check if password matches
-      user.comparePassword(req.body.password, function (err, isMatch) {
-        if (isMatch && !err) {
-          // if user is found and password is right create a token
-          var token = jwt.sign(user.toJSON(), config.secret);
-          // return the information including token as JSON
-          res.json({success: true, token: 'JWT ' + token});
-        } else {
-          res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
-        }
-      });
-    }
-  });
-});
+// authentication
+router.post('/register', ctrlAuth.register);
+router.post('/login', ctrlAuth.login);
 
-getToken = function (headers) {
-  if (headers && headers.authorization) {
-    var parted = headers.authorization.split(' ');
-    if (parted.length === 2) {
-      return parted[1];
-    } else {
-      return null;
-    }
-  } else {
-    return null;
-  }
-};
+// blog
+router.post('/publish', ctrlBlog.publish);
 
 module.exports = router;

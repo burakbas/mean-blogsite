@@ -1,46 +1,46 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
+var mongoose = require( 'mongoose' );
+var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
 
-var UserSchema = new Schema({
-  username: {
-        type: String,
-        unique: true,
-        required: true
-    },
-  password: {
-        type: String,
-        required: true
-    }
+var userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  hash: String,
+  salt: String,
+  following: [{
+    _id: { type: [mongoose.Schema.Types.ObjectId], ref: 'User' },
+    username: { type: String,  ref: 'User' }
+  }],
+  followers: [{
+    _id: { type: [mongoose.Schema.Types.ObjectId], ref: 'User' },
+    username: { type: String,  ref: 'User' }
+  }]
 });
 
-UserSchema.pre('save', function (next) {
-    var user = this;
-    if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
-            if (err) {
-                return next(err);
-            }
-            bcrypt.hash(user.password, salt, null, function (err, hash) {
-                if (err) {
-                    return next(err);
-                }
-                user.password = hash;
-                next();
-            });
-        });
-    } else {
-        return next();
-    }
-});
-
-UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, isMatch);
-    });
+userSchema.methods.setPassword = function(password){
+  this.salt = crypto.randomBytes(16).toString('hex');
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 };
 
-module.exports = mongoose.model('User', UserSchema);
+userSchema.methods.validPassword = function(password) {
+  var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+  return this.hash === hash;
+};
+
+userSchema.methods.generateJwt = function() {
+
+  return jwt.sign({
+    _id: this._id,
+    email: this.email,
+    name: this.name
+  }, 'secret', { expiresIn: '1h' }); // one hour
+};
+
+mongoose.model('User', userSchema);
