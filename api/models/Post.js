@@ -23,6 +23,7 @@ const postSchema = new mongoose.Schema({
   },
   private: {
     type: String,
+    default: "false",
     required: true
   },
   created: {

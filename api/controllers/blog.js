@@ -14,10 +14,13 @@ module.exports.publish = function(req, res) {
   post.created = req.body.created;
 
   post.save(function (err) {
-    if (err) console.log(err);
+    if (err) {
+      res.status(404).json(err);
+      return;
+    }
     // saved!
     res.status(200);
-    res.end('Post successfully saved.');
+    res.send('Post successfully saved.');
   });
 
 };
