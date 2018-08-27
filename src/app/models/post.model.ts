@@ -1,7 +1,7 @@
 export class PostModel {
   id: string;
-  authorId: string;
-  authorName: string;
+  userId: string;
+  userName: string;
   title: string;
   text: string;
   category: string;

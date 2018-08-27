@@ -19,5 +19,8 @@ router.post('/login', ctrlAuth.login);
 
 // blog
 router.post('/publish', ctrlBlog.publish);
+router.get('/post', ctrlBlog.getAllBlogPosts);
+router.get('/post/:id', ctrlBlog.getBlogPostById);
+router.get('/post/user/:userId', ctrlBlog.getAllBlogPostsByUserId);
 
 module.exports = router;

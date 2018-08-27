@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { PostModel } from '../../models/post.model';
-import { post } from 'selenium-webdriver/http';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
@@ -22,8 +21,8 @@ export class PublishComponent implements OnInit {
 
   publish() {
     if (this.auth.getUserDetails() != null) {
-      this.post.authorName = this.auth.getUserDetails().name;
-      this.post.authorId = this.auth.getUserDetails()._id;
+      this.post.userName = this.auth.getUserDetails().name;
+      this.post.userId = this.auth.getUserDetails()._id;
       this.post.private = 'false';
       this.post.created = Date.now();
 

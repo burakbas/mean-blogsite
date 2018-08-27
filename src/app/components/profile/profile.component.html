@@ -7,7 +7,7 @@
     <div class="col-md-8">
 
       <h2 class="d-inline-block mt-4">Profile</h2>
-      <button class="btn btn-primary d-inline-block mt-4 float-right" routerLink="/publish">Publish a Post</button>
+      <button class="btn btn-secondary d-inline-block mt-4 float-right" routerLink="/publish">Publish a Post</button>
       <hr>
       <p class="form-control-static">Name: {{ details?.name }}</p>
       <p class="form-control-static">Email: {{ details?.email }}</p>
@@ -15,16 +15,16 @@
       <hr>
 
       <!-- Blog Post -->
-      <div class="card mb-4">
+      <div class="card mb-4" *ngFor="let post of blogPosts.slice().reverse()">
         <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
         <div class="card-body">
-          <h2 class="card-title">Post Title</h2>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+          <h2 class="card-title">{{post?.title}}</h2>
+          <p class="card-text">{{post?.text}}</p>
           <a href="#" class="btn btn-primary">Read More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
-          Posted on January 1, 2017 by
-          <a href="#">Start Bootstrap</a>
+          {{post?.created | date}}
+          <a href="#">by {{post?.userName}}</a>
         </div>
       </div>
 

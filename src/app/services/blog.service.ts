@@ -16,4 +16,16 @@ export class BlogService {
     });
   }
 
+  public getAllBlogPosts(): Observable<any> {
+    return this.http.get('/api/post');
+  }
+
+  public getBlogPostById(id: string): Observable<any> {
+    return this.http.get('/api/post/' + id);
+  }
+
+  public getAllBlogPostsByUserId(userId: string): Observable<any> {
+    return this.http.get('/api/post/user/' + userId);
+  }
+
 }

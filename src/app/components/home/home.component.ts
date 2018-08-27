@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
+import { BlogService } from '../../services/blog.service';
+import { PostModel } from '../../models/post.model';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,17 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public auth: AuthenticationService) { }
+  blogPosts: PostModel[] = [];
+
+  constructor(public auth: AuthenticationService, private blogService: BlogService) { }
 
   ngOnInit() {
+    this.blogService.getAllBlogPosts().subscribe((res) => {
+      this.blogPosts = res;
+      console.log(res);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 }

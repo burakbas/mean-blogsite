@@ -1,11 +1,11 @@
 const mongoose = require( 'mongoose' );
 
 const postSchema = new mongoose.Schema({
-  authorId: {
+  userId: {
     type: String,
     required: true
   },
-  authorName: {
+  userName: {
     type: String,
     required: true
   },
