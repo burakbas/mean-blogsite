@@ -12,6 +12,9 @@ var ctrlBlog = require('../controllers/blog');
 
 // profile
 router.get('/profile', auth, ctrlProfile.profileRead);
+router.get('/user/:id', auth, ctrlProfile.getUserById);
+router.post('/follow/:id', auth, ctrlProfile.follow);
+router.delete('/follow/:id', auth, ctrlProfile.unfollow);
 
 // authentication
 router.post('/register', ctrlAuth.register);

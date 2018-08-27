@@ -13,14 +13,17 @@ import { AuthenticationService } from './services/authentication.service';
 import { PostComponent } from './components/post/post.component';
 import { PublishComponent } from './components/publish/publish.component';
 import { BlogService } from './services/blog.service';
+import { UserComponent } from './components/user/user.component';
+import { UserService } from './services/user.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
-  { path: 'post', component: PostComponent },
-  { path: 'publish', component: PublishComponent }
+  { path: 'publish', component: PublishComponent, canActivate: [AuthGuardService] },
+  { path: 'user/:id', component: UserComponent, canActivate: [AuthGuardService] },
+  { path: 'post/:id', component: PostComponent }
 ];
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ const routes: Routes = [
     ProfileComponent,
     RegisterComponent,
     PostComponent,
-    PublishComponent
+    PublishComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,8 @@ const routes: Routes = [
   providers: [
     AuthenticationService,
     AuthGuardService,
-    BlogService
+    BlogService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
