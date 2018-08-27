@@ -3,21 +3,24 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './components/home/home.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { RegisterComponent } from './components/register/register.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthenticationService } from './services/authentication.service';
-import { PostComponent } from './post/post.component';
+import { PostComponent } from './components/post/post.component';
+import { PublishComponent } from './components/publish/publish.component';
+import { BlogService } from './services/blog.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
-  { path: 'post', component: PostComponent }
+  { path: 'post', component: PostComponent },
+  { path: 'publish', component: PublishComponent }
 ];
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ const routes: Routes = [
     HomeComponent,
     ProfileComponent,
     RegisterComponent,
-    PostComponent
+    PostComponent,
+    PublishComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthenticationService,
-    AuthGuardService
+    AuthGuardService,
+    BlogService
   ],
   bootstrap: [AppComponent]
 })

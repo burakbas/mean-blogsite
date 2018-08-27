@@ -4,16 +4,7 @@
 }
 
 .container {
-  height: 100vh;
-  padding-top: 54px;
-
-}
-
-@media (min-width: 992px) {
-  .container {
-    height: 100vh;
-    padding-top: 56px;
-  }
+  height: 90vh;
 }
 
 .card-signin {
