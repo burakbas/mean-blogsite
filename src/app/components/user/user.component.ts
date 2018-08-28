@@ -28,13 +28,13 @@ export class UserComponent implements OnInit {
     const queryParams = this.activeRoute.snapshot.params;
 
     this.userService.getUserById(queryParams.id).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.user = res;
 
       // check if logged in user is following
       this.isFollowing = this.userService.isFollowing(this.user._id);
-      console.log(this.isFollowing);
-      console.log(this.userService.user.following);
+      // console.log(this.isFollowing);
+      // console.log(this.userService.user.following);
 
       // get posts of user
       this.blogService.getAllBlogPostsByUserId(this.user._id).subscribe((result) => {
@@ -55,7 +55,7 @@ export class UserComponent implements OnInit {
       // change status
       this.userService.user.following.push(this.user._id);
       this.isFollowing = this.userService.isFollowing(this.user._id);
-      console.log(this.isFollowing);
+      // console.log(this.isFollowing);
 
     }, (err) => {
       console.log(err);

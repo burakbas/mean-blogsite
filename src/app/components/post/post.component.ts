@@ -22,7 +22,7 @@ export class PostComponent implements OnInit {
 
     this.blogService.getBlogPostById(queryParams.id).subscribe((res) => {
       this.blogPost = res;
-      console.log(res);
+      // console.log(res);
     }, (err) => {
       this.router.navigateByUrl('/');
       console.log(err);

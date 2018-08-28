@@ -16,8 +16,8 @@ export class UserService {
   public refreshUser() {
     if (this.auth.getUserDetails()) {
       this.getUserById(this.auth.getUserDetails()._id).subscribe((res) => {
-        console.log('User set');
-        console.log(res);
+        // console.log('User set');
+        // console.log(res);
         this.user = res;
       });
     }

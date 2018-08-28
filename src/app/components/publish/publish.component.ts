@@ -32,7 +32,7 @@ export class PublishComponent implements OnInit {
       this.post.created = Date.now();
 
       this.blogService.publishPost(this.post).subscribe((res) => {
-        console.log(res);
+        // console.log(res);
         this.router.navigateByUrl('/profile');
       }, (err) => {
         console.log(err);
@@ -45,7 +45,7 @@ export class PublishComponent implements OnInit {
 
   toggle() {
     this.private = !this.private;
-    console.log(this.private);
+    // console.log(this.private);
   }
 
 }

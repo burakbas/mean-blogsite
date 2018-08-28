@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   getAllBlogPosts() {
     this.blogService.getAllBlogPosts().subscribe((res) => {
       this.allBlogPosts = res;
-      console.log(res);
+      // console.log(res);
     }, (err) => {
       console.log(err);
     });
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   getFollowedBlogPosts() {
     this.blogService.getFollowedBlogPosts(this.userService.user._id).subscribe((res) => {
       this.followedBlogPosts = res;
-      console.log(res);
+      // console.log(res);
     }, (err) => {
       console.log(err);
     });

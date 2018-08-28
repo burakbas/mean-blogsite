@@ -30,14 +30,14 @@ export class ProfileComponent implements OnInit {
 
       setTimeout(() => {
         this.fillFollow();
-        console.log(this.following);
-        console.log(this.followers);
+        // console.log(this.following);
+        // console.log(this.followers);
       }, 500);
 
       // get posts of user
       this.blogService.getAllBlogPostsByUserId(this.details._id).subscribe((res) => {
         this.blogPosts = res;
-        console.log(res);
+        // console.log(res);
       }, (err) => {
         console.log(err);
       });

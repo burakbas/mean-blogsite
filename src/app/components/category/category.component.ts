@@ -23,7 +23,7 @@ export class CategoryComponent implements OnInit {
     const queryParams = this.activeRoute.snapshot.params;
     this.category = queryParams.category;
     this.blogService.getBlogPostByCategory(this.category).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.blogPosts = res;
     }, (err) => {
       console.log(err);
