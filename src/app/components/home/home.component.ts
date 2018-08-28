@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { BlogService } from '../../services/blog.service';
 import { PostModel } from '../../models/post.model';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -11,15 +12,36 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  blogPosts: PostModel[] = [];
+  allBlogPosts: PostModel[] = [];
+  followedBlogPosts: PostModel[] = [];
+  showFollowing = false;
 
-  constructor(public auth: AuthenticationService, private blogService: BlogService, private router: Router) {
+  constructor(public auth: AuthenticationService, private userService: UserService,
+              private blogService: BlogService, private router: Router) {
   }
 
   ngOnInit() {
+    this.userService.refreshUser();
+    this.getAllBlogPosts();
+    setTimeout(() => {
+      this.getFollowedBlogPosts();
+      this.getAllBlogPosts();
+    }, 100);
+  }
+
+  getAllBlogPosts() {
     this.blogService.getAllBlogPosts().subscribe((res) => {
-      this.blogPosts = res;
-      console.log(this.blogPosts);
+      this.allBlogPosts = res;
+      console.log(res);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  getFollowedBlogPosts() {
+    this.blogService.getFollowedBlogPosts(this.userService.user._id).subscribe((res) => {
+      this.followedBlogPosts = res;
+      console.log(res);
     }, (err) => {
       console.log(err);
     });

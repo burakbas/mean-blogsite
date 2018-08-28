@@ -14,14 +14,8 @@ var userSchema = new mongoose.Schema({
   },
   hash: String,
   salt: String,
-  following: [{
-    _id: { type: [mongoose.Schema.Types.ObjectId], ref: 'User' },
-    username: { type: String,  ref: 'User' }
-  }],
-  followers: [{
-    _id: { type: [mongoose.Schema.Types.ObjectId], ref: 'User' },
-    username: { type: String,  ref: 'User' }
-  }]
+  following: [{ type: [mongoose.Schema.Types.ObjectId], ref: 'User' }],
+  followers: [{ type: [mongoose.Schema.Types.ObjectId], ref: 'User' }]
 });
 
 userSchema.methods.setPassword = function(password){
@@ -40,7 +34,7 @@ userSchema.methods.generateJwt = function() {
     _id: this._id,
     email: this.email,
     name: this.name
-  }, 'secret', { expiresIn: '1h' }); // one hour
+  }, 'secret', { expiresIn: '168h' }); // one week
 };
 
 mongoose.model('User', userSchema);

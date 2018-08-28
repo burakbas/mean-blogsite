@@ -12,6 +12,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class PublishComponent implements OnInit {
 
   post: PostModel = new PostModel();
+  private = false;
 
   constructor(private blogService: BlogService, private auth: AuthenticationService, private router: Router) {
   }
@@ -23,7 +24,11 @@ export class PublishComponent implements OnInit {
     if (this.auth.getUserDetails() != null) {
       this.post.userName = this.auth.getUserDetails().name;
       this.post.userId = this.auth.getUserDetails()._id;
-      this.post.private = 'false';
+      if (this.private) {
+        this.post.private = 'true';
+      } else {
+        this.post.private = 'false';
+      }
       this.post.created = Date.now();
 
       this.blogService.publishPost(this.post).subscribe((res) => {
@@ -36,6 +41,11 @@ export class PublishComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
 
+  }
+
+  toggle() {
+    this.private = !this.private;
+    console.log(this.private);
   }
 
 }

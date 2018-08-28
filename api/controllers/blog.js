@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Post = mongoose.model('Post');
+const User = mongoose.model('User');
 
 module.exports.publish = function(req, res) {
 
@@ -57,6 +58,23 @@ module.exports.getAllBlogPostsByUserId = function(req, res) {
       return;
     }
     res.send(post);
+  });
+
+};
+
+module.exports.getFollowedBlogPosts = function(req, res) {
+
+  let following;
+
+  User.findById(req.params.id).exec(function (err, user) {
+    following = user.following;
+    Post.find({ userId : { $in : following }}, function (err, post) {
+      if (err) {
+        res.status(404).json(err);
+        return;
+      }
+      res.send(post);
+    });
   });
 
 };

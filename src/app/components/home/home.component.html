@@ -14,34 +14,56 @@
       <button *ngIf="auth.isLoggedIn()" class="btn btn-secondary float-right" routerLink="/publish">Publish a Post</button>
 
       <div class="btn-group btn-group-toggle" data-toggle="buttons" *ngIf="auth.isLoggedIn()">
-        <label class="btn btn-secondary active">
+        <label class="btn btn-outline-info active" (click)="showFollowing = false">
           <input type="radio" name="options" id="option1" autocomplete="off" checked> All posts
         </label>
-        <label class="btn btn-secondary">
+        <label class="btn btn-outline-info" (click)="showFollowing = true">
           <input type="radio" name="options" id="option2" autocomplete="off"> Following
         </label>
       </div>
 
       <hr>
 
-      <div class="card mb-4" *ngIf="blogPosts.length<=0">
-        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-        <div class="card-body">
-          <h3>No post are published yet.</h3>
+      <!-- Blog Post -->
+      <div *ngIf="!showFollowing">
+        <div class="card mb-4" *ngIf="allBlogPosts.length<=0">
+          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <div class="card-body">
+            <h3>No post are published yet.</h3>
+          </div>
+        </div>
+        <div class="card mb-4" *ngFor="let post of allBlogPosts.slice().reverse()">
+          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <div class="card-body">
+            <h2 class="card-title">{{post?.title}}</h2>
+            <p class="card-text">{{post?.text}}</p>
+            <a (click)="goToPage(post?._id, '/post/')" class="btn btn-info text-white">Read More &rarr;</a>
+          </div>
+          <div class="card-footer text-muted">
+            {{post?.created | date:'medium'}} by {{post?.userName}}
+            <button *ngIf="auth.isLoggedIn()" class="btn btn-secondary float-right" (click)="goToPage(post?.userId, '/user/')">See the Author</button>
+          </div>
         </div>
       </div>
 
-      <!-- Blog Post -->
-      <div class="card mb-4" *ngFor="let post of blogPosts.slice().reverse()">
-        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-        <div class="card-body">
-          <h2 class="card-title">{{post?.title}}</h2>
-          <p class="card-text">{{post?.text}}</p>
-          <a (click)="goToPage(post?._id, '/post/')" class="btn btn-info text-white">Read More &rarr;</a>
+      <div *ngIf="showFollowing">
+        <div class="card mb-4" *ngIf="followedBlogPosts.length<=0">
+          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <div class="card-body">
+            <h3>No posts.</h3>
+          </div>
         </div>
-        <div class="card-footer text-muted">
-          {{post?.created | date:'medium'}}
-          <a (click)="goToPage(post?.userId, '/user/')">by {{post?.userName}}</a>
+        <div class="card mb-4" *ngFor="let post of followedBlogPosts.slice().reverse()">
+          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <div class="card-body">
+            <h2 class="card-title">{{post?.title}}</h2>
+            <p class="card-text">{{post?.text}}</p>
+            <a (click)="goToPage(post?._id, '/post/')" class="btn btn-info text-white">Read More &rarr;</a>
+          </div>
+          <div class="card-footer text-muted">
+            {{post?.created | date:'medium'}} by {{post?.userName}}
+            <button *ngIf="auth.isLoggedIn()" class="btn btn-secondary float-right" (click)="goToPage(post?.userId, '/user/')">See the Author</button>
+          </div>
         </div>
       </div>
 
