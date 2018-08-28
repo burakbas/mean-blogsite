@@ -6,13 +6,10 @@
     <!-- Blog Entries Column -->
     <div class="col-md-12">
 
-      <h2 class="d-inline-block mt-4">User</h2>
-      <button *ngIf="!isFollowing && auth.getUserDetails()._id != user?._id" class="btn btn-success d-inline-block mt-4 float-right" (click)="follow()">Follow</button>
-      <button *ngIf="isFollowing && auth.getUserDetails()._id != user?._id" class="btn btn-danger d-inline-block mt-4 float-right" (click)="unfollow()">Unfollow</button>
-      <hr>
-      <p class="form-control-static">Name: {{ user?.name }}</p>
-      <p class="form-control-static">Email: {{ user?.email }}</p>
-      <h2 class="mt-4">{{ user?.name }}'s Posts</h2>
+      <h2 class="mt-4">
+        Category
+        <small>{{category}}</small>
+      </h2>
       <hr>
 
       <div class="card mb-4" *ngIf="blogPosts.length<=0">
@@ -27,13 +24,17 @@
         <div class="card mb-4" *ngIf="post.private == 'false'">
           <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
           <div class="card-body">
-            <h2 class="card-title">{{post?.title}}</h2>
+            <h2 class="card-title">
+              {{post?.title}}
+              <small>{{ post.category }}</small>
+            </h2>
             <p class="card-text text-truncate">{{post?.text}}</p>
             <a (click)="goToPage(post?._id, '/post/')" class="btn btn-info text-white">Read More &rarr;</a>
           </div>
           <div class="card-footer text-muted">
-            Posted on {{post?.created | date:'medium'}}
-            <a (click)="goToPage(post?.userId, '/user/')">by {{post?.userName}}</a>
+            Posted on {{post?.created | date:'medium'}} by {{post?.userName}}
+            <button *ngIf="auth.isLoggedIn() && auth.getUserDetails()._id != post.userId"
+                    class="btn btn-secondary float-right" (click)="goToPage(post?.userId, '/user/')">See the Author</button>
           </div>
         </div>
       </div>
@@ -50,8 +51,10 @@
 
     </div>
 
-    </div>
+  </div>
   <!-- /.row -->
 
 </div>
 <!-- /.container -->
+
+

@@ -15,7 +15,9 @@
       <!-- Author -->
       <p class="lead">
         by
-        <a [routerLink]="['/user/', blogPost?.userId || '']">{{blogPost?.userName}}</a>
+        <a *ngIf="auth.isLoggedIn() && blogPost?.userId == auth.getUserDetails()._id">{{blogPost?.userName}}</a>
+        <a *ngIf="auth.isLoggedIn() && blogPost?.userId != auth.getUserDetails()._id" [routerLink]="['/user/', blogPost?.userId || '']">{{blogPost?.userName}}</a>
+        <a *ngIf="!auth.isLoggedIn()">{{blogPost?.userName}}</a>
       </p>
 
       <hr>
@@ -26,7 +28,7 @@
       <hr>
 
       <!-- Preview Image -->
-      <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+      <img class="img-fluid rounded" src="http://placehold.it/1200x300" alt="">
 
       <hr>
 

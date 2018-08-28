@@ -78,3 +78,15 @@ module.exports.getFollowedBlogPosts = function(req, res) {
   });
 
 };
+
+module.exports.getBlogPostByCategory = function(req, res) {
+
+  Post.find({category: req.params.category}, function (err, post) {
+    if (err) {
+      res.status(404).json(err);
+      return;
+    }
+    res.send(post);
+  });
+
+};

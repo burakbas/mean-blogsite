@@ -59,9 +59,9 @@
         <h5 class="card-header">Following</h5>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4 col-md-6" *ngFor="let following of following">
               <ul class="list-unstyled mb-0">
-                <li *ngFor="let following of following">
+                <li>
                   <a [routerLink]="['/user/', following[0]]">{{ following[1] }}</a>
                 </li>
               </ul>
@@ -75,9 +75,9 @@
         <h5 class="card-header">Followers</h5>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4 col-md-6" *ngFor="let follower of followers">
               <ul class="list-unstyled mb-0">
-                <li *ngFor="let follower of followers">
+                <li>
                   <a [routerLink]="['/user/', follower[0]]">{{ follower[1] }}</a>
                 </li>
               </ul>

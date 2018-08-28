@@ -17,7 +17,7 @@ export class UserComponent implements OnInit {
   blogPosts: PostModel[] = [];
   isFollowing = false;
 
-  constructor(private userService: UserService, private blogService: BlogService,
+  constructor(private userService: UserService, private blogService: BlogService, public auth: AuthenticationService,
               private router: Router, private activeRoute: ActivatedRoute) {
   }
 

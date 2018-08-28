@@ -26,5 +26,6 @@ router.get('/post', ctrlBlog.getAllBlogPosts);
 router.get('/post/:id', ctrlBlog.getBlogPostById);
 router.get('/post/user/:userId', ctrlBlog.getAllBlogPostsByUserId);
 router.get('/post/followed/:id', ctrlBlog.getFollowedBlogPosts);
+router.get('/post/category/:category', ctrlBlog.getBlogPostByCategory);
 
 module.exports = router;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostModel } from '../../models/post.model';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-post',
@@ -12,7 +13,9 @@ export class PostComponent implements OnInit {
 
   blogPost: PostModel;
 
-  constructor(private blogService: BlogService, private router: Router, private activeRoute: ActivatedRoute) { }
+  constructor(private blogService: BlogService, private router: Router,
+              public auth: AuthenticationService, private activeRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
     const queryParams = this.activeRoute.snapshot.params;

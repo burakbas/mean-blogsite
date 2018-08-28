@@ -15,6 +15,7 @@ import { PublishComponent } from './components/publish/publish.component';
 import { BlogService } from './services/blog.service';
 import { UserComponent } from './components/user/user.component';
 import { UserService } from './services/user.service';
+import { CategoryComponent } from './components/category/category.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'publish', component: PublishComponent, canActivate: [AuthGuardService] },
   { path: 'user/:id', component: UserComponent, canActivate: [AuthGuardService] },
-  { path: 'post/:id', component: PostComponent }
+  { path: 'post/:id', component: PostComponent },
+  { path: 'category/:category', component: CategoryComponent }
 ];
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ const routes: Routes = [
     RegisterComponent,
     PostComponent,
     PublishComponent,
-    UserComponent
+    UserComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,

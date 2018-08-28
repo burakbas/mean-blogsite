@@ -31,6 +31,10 @@ export class BlogService {
     return this.http.get('/api/post/followed/' + userId, {headers: {Authorization: `Bearer ${this.getToken()}`}});
   }
 
+  public getBlogPostByCategory(category: string): Observable<any> {
+    return this.http.get('/api/post/category/' + category);
+  }
+
   private getToken(): string {
     if (!this.token) {
       this.token = localStorage.getItem('token');
