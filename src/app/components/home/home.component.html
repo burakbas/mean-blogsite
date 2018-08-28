@@ -99,12 +99,10 @@
         <h5 class="card-header">Categories</h5>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-4 col-md-6" *ngFor="let post of allBlogPosts.slice().reverse()">
-              <ul class="list-unstyled mb-0" >
-                <li>
-                  <a *ngIf="post.private == 'false'" [routerLink]="['/category', post?.category]">{{post.category}}</a>
-                </li>
-              </ul>
+            <div *ngFor="let post of allBlogPosts.slice().reverse() | unique">
+              <div class="col-md-12" *ngIf="post.private == 'false'">
+                <a [routerLink]="['/category', post?.category]">{{post.category}}</a>
+              </div>
             </div>
           </div>
         </div>

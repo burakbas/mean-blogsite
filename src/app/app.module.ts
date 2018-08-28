@@ -16,6 +16,7 @@ import { BlogService } from './services/blog.service';
 import { UserComponent } from './components/user/user.component';
 import { UserService } from './services/user.service';
 import { CategoryComponent } from './components/category/category.component';
+import { UniquePipe } from './tools/unique.pipe';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,7 +38,8 @@ const routes: Routes = [
     PostComponent,
     PublishComponent,
     UserComponent,
-    CategoryComponent
+    CategoryComponent,
+    UniquePipe
   ],
   imports: [
     BrowserModule,
