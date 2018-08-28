@@ -23,10 +23,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.userService.refreshUser();
     this.getAllBlogPosts();
-    setTimeout(() => {
-      this.getFollowedBlogPosts();
-      this.getAllBlogPosts();
-    }, 100);
+    if (this.auth.isLoggedIn()) {
+      setTimeout(() => {
+        this.getFollowedBlogPosts();
+      }, 500);
+    }
   }
 
   getAllBlogPosts() {

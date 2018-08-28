@@ -23,16 +23,18 @@
       </div>
 
       <!-- Blog Post -->
-      <div class="card mb-4" *ngFor="let post of blogPosts.slice().reverse()">
-        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-        <div class="card-body">
-          <h2 class="card-title">{{post?.title}}</h2>
-          <p class="card-text">{{post?.text}}</p>
-          <a (click)="goToPage(post?._id, '/post/')" class="btn btn-info text-white">Read More &rarr;</a>
-        </div>
-        <div class="card-footer text-muted">
-          {{post?.created | date:'medium'}}
-          <a (click)="goToPage(post?.userId, '/user/')">by {{post?.userName}}</a>
+      <div *ngFor="let post of blogPosts.slice().reverse()">
+        <div class="card mb-4" *ngIf="post.private == 'false'">
+          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <div class="card-body">
+            <h2 class="card-title">{{post?.title}}</h2>
+            <p class="card-text text-truncate">{{post?.text}}</p>
+            <a (click)="goToPage(post?._id, '/post/')" class="btn btn-info text-white">Read More &rarr;</a>
+          </div>
+          <div class="card-footer text-muted">
+            Posted on {{post?.created | date:'medium'}}
+            <a (click)="goToPage(post?.userId, '/user/')">by {{post?.userName}}</a>
+          </div>
         </div>
       </div>
 

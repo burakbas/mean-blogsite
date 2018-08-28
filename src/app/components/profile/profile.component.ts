@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
         this.fillFollow();
         console.log(this.following);
         console.log(this.followers);
-      }, 100);
+      }, 500);
 
       // get posts of user
       this.blogService.getAllBlogPostsByUserId(this.details._id).subscribe((res) => {
