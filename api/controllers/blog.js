@@ -14,6 +14,18 @@ module.exports.publish = function(req, res) {
   post.private = req.body.private;
   post.created = req.body.created;
 
+  // validation err messages
+  if(post.title == null) {
+    res.status(404).send('Title is required.');
+    return;
+  } else if (post.category == null) {
+    res.status(404).send('Category is required.');
+    return;
+  } else if (post.text == null) {
+    res.status(404).send('Text is required.');
+    return;
+  }
+
   post.save(function (err) {
     if (err) {
       res.status(404).json(err);

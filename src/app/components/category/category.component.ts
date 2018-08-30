@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { BlogService } from '../../services/blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostModel } from '../../models/post.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-category',
@@ -15,16 +16,19 @@ export class CategoryComponent implements OnInit {
   blogPosts: PostModel[] = [];
   category = '';
 
-  constructor(public auth: AuthenticationService, public userService: UserService,
-              private blogService: BlogService, private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(public auth: AuthenticationService, private blogService: BlogService,
+              private router: Router, private activeRoute: ActivatedRoute,
+              private loader: NgxUiLoaderService) {
   }
 
   ngOnInit() {
     const queryParams = this.activeRoute.snapshot.params;
     this.category = queryParams.category;
+    this.loader.start();
     this.blogService.getBlogPostByCategory(this.category).subscribe((res) => {
-      // console.log(res);
       this.blogPosts = res;
+      this.loader.stop();
+      // console.log(res);
     }, (err) => {
       console.log(err);
     });

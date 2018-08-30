@@ -38,7 +38,7 @@
             <div class="card-body">
               <h2 class="card-title">
                 {{post?.title}}
-                <small>{{ post.category }}</small>
+                <small>{{ post?.category }}</small>
               </h2>
               <p class="card-text text-truncate">{{post?.text}}</p>
               <a (click)="goToPage(post?._id, '/post/')" class="btn btn-info text-white">Read More &rarr;</a>
@@ -65,7 +65,7 @@
             <div class="card-body">
               <h2 class="card-title">
                 {{post?.title}}
-                <small>{{ post.category }}</small>
+                <small>{{ post?.category }}</small>
               </h2>
               <p class="card-text text-truncate">{{post?.text}}</p>
               <a (click)="goToPage(post?._id, '/post/')" class="btn btn-info text-white">Read More &rarr;</a>
@@ -99,6 +99,9 @@
         <h5 class="card-header">Categories</h5>
         <div class="card-body">
           <div class="row">
+            <div class="col-lg-12 col-md-12" *ngIf="allBlogPosts.length<=0">
+              No categories.
+            </div>
             <div *ngFor="let post of allBlogPosts.slice().reverse() | unique">
               <div class="col-md-12" *ngIf="post.private == 'false'">
                 <a [routerLink]="['/category', post?.category]">{{post.category}}</a>

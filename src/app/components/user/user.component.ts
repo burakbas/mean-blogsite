@@ -5,6 +5,7 @@ import { UserModel } from '../../models/user.model';
 import { BlogService } from '../../services/blog.service';
 import { PostModel } from '../../models/post.model';
 import { AuthenticationService } from '../../services/authentication.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-user',
@@ -17,8 +18,9 @@ export class UserComponent implements OnInit {
   blogPosts: PostModel[] = [];
   isFollowing = false;
 
-  constructor(private userService: UserService, private blogService: BlogService, public auth: AuthenticationService,
-              private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(private userService: UserService, private blogService: BlogService,
+              public auth: AuthenticationService, private router: Router,
+              private activeRoute: ActivatedRoute, private loader: NgxUiLoaderService) {
   }
 
   ngOnInit() {
@@ -27,18 +29,18 @@ export class UserComponent implements OnInit {
 
     const queryParams = this.activeRoute.snapshot.params;
 
+    this.loader.start();
     this.userService.getUserById(queryParams.id).subscribe((res) => {
       // console.log(res);
       this.user = res;
 
       // check if logged in user is following
       this.isFollowing = this.userService.isFollowing(this.user._id);
-      // console.log(this.isFollowing);
-      // console.log(this.userService.user.following);
 
       // get posts of user
       this.blogService.getAllBlogPostsByUserId(this.user._id).subscribe((result) => {
         this.blogPosts = result;
+        this.loader.stop();
       }, (err) => {
         console.log(err);
       });

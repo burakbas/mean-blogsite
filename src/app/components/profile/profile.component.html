@@ -59,12 +59,16 @@
         <h5 class="card-header">Following</h5>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-4 col-md-6" *ngFor="let following of following">
-              <ul class="list-unstyled mb-0">
+            <div class="col-lg-12 col-md-12" *ngIf="following.length<=0">
+              You are not following any users.
+            </div>
+            <div class="col-lg-4 col-md-6" *ngFor="let followin of following">
+              <ul class="list-unstyled mb-0" *ngIf="(followin[1] | async) as followingUser; else loading;">
                 <li>
-                  <a [routerLink]="['/user/', following[0]]">{{ following[1] }}</a>
+                  <a [routerLink]="['/user/', followin[0]]">{{ followingUser.name }}</a>
                 </li>
               </ul>
+              <ng-template #loading>Loading</ng-template>
             </div>
           </div>
         </div>
@@ -75,12 +79,16 @@
         <h5 class="card-header">Followers</h5>
         <div class="card-body">
           <div class="row">
+            <div class="col-lg-12 col-md-12" *ngIf="followers.length<=0">
+              No followers.
+            </div>
             <div class="col-lg-4 col-md-6" *ngFor="let follower of followers">
-              <ul class="list-unstyled mb-0">
+              <ul class="list-unstyled mb-0" *ngIf="(follower[1] | async) as followerUser; else loading;">
                 <li>
-                  <a [routerLink]="['/user/', follower[0]]">{{ follower[1] }}</a>
+                  <a [routerLink]="['/user/', follower[0]]">{{ followerUser.name }}</a>
                 </li>
               </ul>
+              <ng-template #loading>Loading</ng-template>
             </div>
           </div>
         </div>

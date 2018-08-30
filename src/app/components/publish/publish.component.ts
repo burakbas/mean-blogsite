@@ -13,6 +13,7 @@ export class PublishComponent implements OnInit {
 
   post: PostModel = new PostModel();
   private = false;
+  message: string;
 
   constructor(private blogService: BlogService, private auth: AuthenticationService, private router: Router) {
   }
@@ -35,6 +36,7 @@ export class PublishComponent implements OnInit {
         // console.log(res);
         this.router.navigateByUrl('/profile');
       }, (err) => {
+        this.message = err.error;
         console.log(err);
       });
     } else {

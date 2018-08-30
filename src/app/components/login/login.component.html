@@ -17,7 +17,8 @@
 
             <button class="btn btn-lg btn-info btn-block text-uppercase" type="submit">Login</button>
             <p>Don't have an account, <a routerLink="/register">Register.</a></p>
-            </form>
+          </form>
+          <h5 class="text-center text-danger" *ngIf="message">{{ message }}</h5>
         </div>
       </div>
     </div>

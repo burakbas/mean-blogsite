@@ -4,24 +4,53 @@
       <div class="card card-signin my-5">
         <div class="card-body">
           <h5 class="card-title text-center">Register</h5>
-          <form class="form-signin" (submit)="register()">
+          <form class="form-signin" (submit)="register()" #signupForm = "ngForm">
+
             <div class="form-label-group">
-              <input id="name" type="text" class="form-control" name="name" placeholder="Name" required autofocus [(ngModel)]="credentials.name">
+              <input #name="ngModel" minlength="3" id="name" type="text" class="form-control" name="name" placeholder="Name" required autofocus [(ngModel)]="credentials.name">
               <label for="name">Name</label>
+              <!-- This is the error section -->
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-center text-danger p-0 m-0">
+                <p *ngIf="name?.errors.required">
+                  Name field can't be blank.
+                </p>
+                <p *ngIf="name?.errors.minlength">
+                  Name must be at least 3 characters long.
+                </p>
+              </div>
             </div>
 
             <div class="form-label-group">
-              <input id="inputEmail" type="email" class="form-control" name="email" placeholder="Email address" required [(ngModel)]="credentials.email">
+              <input #email="ngModel" id="inputEmail" type="email" class="form-control" name="email" placeholder="Email address" required email="true" ngModel [(ngModel)]="credentials.email">
               <label for="inputEmail">Email address</label>
+              <!-- This is the error section -->
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-center text-danger">
+                <p *ngIf = "email?.errors.required">
+                  Email field can't be blank.
+                </p>
+                <p *ngIf = "email?.errors.email && email.touched">
+                  The email doesn't seem right.
+                </p>
+              </div>
             </div>
 
             <div class="form-label-group">
-              <input id="inputPassword" type="password" class="form-control" name="password" placeholder="Password" required [(ngModel)]="credentials.password">
+              <input #password="ngModel" minlength="6" id="inputPassword" type="password" class="form-control" name="password" placeholder="Password" required [(ngModel)]="credentials.password">
               <label for="inputPassword">Password</label>
+              <!-- This is the error section -->
+              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-center text-danger">
+                <p *ngIf = "password?.errors.required">
+                  Password field can't be blank.
+                </p>
+                <p *ngIf="password?.errors.minlength">
+                  Password must be at least 6 characters long.
+                </p>
+              </div>
             </div>
 
-            <button class="btn btn-lg btn-info btn-block text-uppercase" type="submit">Register</button>
+            <button class="btn btn-lg btn-info btn-block text-uppercase" type="submit" [disabled]="!signupForm.form.valid">Register</button>
             <p>Already have an account, <a routerLink="/login">Login.</a></p>
+
           </form>
         </div>
       </div>
