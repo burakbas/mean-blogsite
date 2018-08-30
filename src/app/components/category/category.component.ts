@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { BlogService } from '../../services/blog.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,8 +7,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  templateUrl: './category.component.html'
 })
 export class CategoryComponent implements OnInit {
 

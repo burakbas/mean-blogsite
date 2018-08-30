@@ -5,7 +5,7 @@ import { AuthenticationService, TokenPayload } from '../../services/authenticati
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['../../styles/styles.css']
 })
 export class RegisterComponent {
 

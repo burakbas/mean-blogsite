@@ -7,7 +7,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 @Component({
   selector: 'app-publish',
   templateUrl: './publish.component.html',
-  styleUrls: ['./publish.component.css']
+  styleUrls: ['../../styles/styles.css']
 })
 export class PublishComponent implements OnInit {
 

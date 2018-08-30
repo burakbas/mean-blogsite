@@ -3,6 +3,10 @@
   --input-padding-y: .75rem;
 }
 
+.cont {
+  height: 90vh;
+}
+
 .card-signin {
   border: 0;
   border-radius: 1rem;
@@ -42,7 +46,7 @@
   margin-bottom: 1rem;
 }
 
-.form-label-group input{
+.form-label-group input {
   border-radius: 2rem;
 }
 
@@ -98,4 +102,3 @@
   font-size: 12px;
   color: #777;
 }
-
