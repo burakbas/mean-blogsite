@@ -6,6 +6,7 @@ const auth = jwt({
   userProperty: 'payload'
 });
 
+// controllers
 const ctrlProfile = require('../controllers/profile');
 const ctrlAuth = require('../controllers/authentication');
 const ctrlBlog = require('../controllers/blog');
