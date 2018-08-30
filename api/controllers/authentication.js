@@ -1,10 +1,10 @@
-var passport = require('passport');
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
+const passport = require('passport');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
 
 module.exports.register = function(req, res) {
 
-  var user = new User();
+  const user = new User();
 
   user.name = req.body.name;
   user.email = req.body.email;
@@ -25,7 +25,7 @@ module.exports.register = function(req, res) {
 module.exports.login = function(req, res) {
 
   passport.authenticate('local', function(err, user, info){
-    var token;
+    let token;
 
     // If Passport throws/catches an error
     if (err) {
