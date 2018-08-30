@@ -32,7 +32,7 @@
             <h3>No post are published yet.</h3>
           </div>
         </div>
-        <div *ngFor="let post of allBlogPosts.slice().reverse()">
+        <div *ngFor="let post of allBlogPosts.slice().reverse() | paginate: { itemsPerPage: 5, currentPage: p }">
           <div class="card mb-4" *ngIf="post.private == 'false'">
             <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
             <div class="card-body">
@@ -59,7 +59,7 @@
             <h3>No posts.</h3>
           </div>
         </div>
-        <div *ngFor="let post of followedBlogPosts.slice().reverse()">
+        <div *ngFor="let post of followedBlogPosts.slice().reverse() | paginate: { itemsPerPage: 5, currentPage: f }">
           <div class="card mb-4" *ngIf="post.private == 'false'">
             <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
             <div class="card-body">
@@ -80,14 +80,8 @@
       </div>
 
       <!-- Pagination -->
-      <ul class="pagination justify-content-center mb-4">
-        <li class="page-item">
-          <a class="page-link" href="#">&larr; Older</a>
-        </li>
-        <li class="page-item disabled">
-          <a class="page-link" href="#">Newer &rarr;</a>
-        </li>
-      </ul>
+      <pagination-controls *ngIf="!showFollowing" (pageChange)="p = $event"></pagination-controls>
+      <pagination-controls *ngIf="showFollowing" (pageChange)="f = $event"></pagination-controls>
 
     </div>
 

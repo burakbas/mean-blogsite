@@ -22,7 +22,7 @@
       </div>
 
       <!-- Blog Post -->
-      <div class="card mb-4" *ngFor="let post of blogPosts.slice().reverse()">
+      <div class="card mb-4" *ngFor="let post of blogPosts.slice().reverse() | paginate: { itemsPerPage: 5, currentPage: p }">
         <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
         <div class="card-body">
           <h2 class="card-title">
@@ -40,14 +40,7 @@
       </div>
 
       <!-- Pagination -->
-      <ul class="pagination justify-content-center mb-4">
-        <li class="page-item">
-          <a class="page-link" href="#">&larr; Older</a>
-        </li>
-        <li class="page-item disabled">
-          <a class="page-link" href="#">Newer &rarr;</a>
-        </li>
-      </ul>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
     </div>
 

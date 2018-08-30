@@ -18,6 +18,7 @@ import { UserService } from './services/user.service';
 import { CategoryComponent } from './components/category/category.component';
 import { UniquePipe } from './tools/unique.pipe';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -47,7 +48,8 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    NgxPaginationModule
   ],
   providers: [
     AuthenticationService,
