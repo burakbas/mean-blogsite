@@ -2,7 +2,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-module.exports.register = function(req, res) {
+module.exports.register = function (req, res) {
 
   const user = new User();
 
@@ -11,20 +11,24 @@ module.exports.register = function(req, res) {
 
   user.setPassword(req.body.password);
 
-  user.save(function(err) {
-    if (err) console.log(err);
-    const token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
+  user.save(function (err) {
+    if (err) {
+      console.log(err);
+      res.status(404).send('Email already exists.');
+    } else {
+      const token = user.generateJwt();
+      res.status(200);
+      res.json({
+        "token": token
+      });
+    }
   });
 
 };
 
-module.exports.login = function(req, res) {
+module.exports.login = function (req, res) {
 
-  passport.authenticate('local', function(err, user, info){
+  passport.authenticate('local', function (err, user, info) {
     let token;
 
     // If Passport throws/catches an error
@@ -34,11 +38,11 @@ module.exports.login = function(req, res) {
     }
 
     // If a user is found
-    if(user){
+    if (user) {
       token = user.generateJwt();
       res.status(200);
       res.json({
-        "token" : token
+        "token": token
       });
     } else {
       // If user is not found
